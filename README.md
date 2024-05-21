@@ -7,9 +7,9 @@
 
 ## Edit survey and target size
 
-Update `upscaleRow` and `upscaleColumn` in cutAndFill.js
+Update `UPSCALE_ROW` and `UPSCALE_COLUMN` in config.js
 
 ```js
-const upscaleRow = 500;
-const upscaleColumn = 500;
+const UPSCALE_ROW = 500;
+const UPSCALE_COLUMN = 500;
 ```
