@@ -55,15 +55,15 @@ const generateHeightMap = () => {
 
 const main = async () => {
   const heightMap = generateHeightMap();
-  const { targetHeight, initialSurvey, workAreaMap } =
+  const { target, initial, workAreaMetadata } =
     upscaler(heightMap);
 
-  await writer('heightMap.txt', arrayToString(heightMap));
-   writer('targetHeight.txt', arrayToString(targetHeight)).then(async() => {
-    await writer('initialSurvey.txt', arrayToString(initialSurvey));
+  await writer('CutAndFillMap.txt', arrayToString(heightMap));
+   writer('target.txt', arrayToString(target)).then(async() => {
+    await writer('initial.txt', arrayToString(initial));
   });
 
-  await writer('workAreaMap.json', JSON.stringify(workAreaMap));
+  await writer('workAreaMetadata.json', JSON.stringify(workAreaMetadata));
 };
 
 main();

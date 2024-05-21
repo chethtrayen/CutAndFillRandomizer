@@ -1,9 +1,9 @@
 const { UPSCALE_COLUMN, UPSCALE_ROW, ROW, COLUMN, CUT_REF } = require('../config');
 const randomInt = require('./randomInt');
 
-const generateTargetAndMap = (initialSurvey, heightMap) => {
-  const workAreaMap = {};
-  const targetHeight = [];
+const generateTargetAndMap = (initial, heightMap) => {
+  const workAreaMetadata = {};
+  const target = [];
   const rowScale = UPSCALE_ROW / ROW;
   const columnScale = UPSCALE_COLUMN / COLUMN;
 
@@ -17,38 +17,38 @@ const generateTargetAndMap = (initialSurvey, heightMap) => {
       const isCut = workArea.includes(CUT_REF);
       let height = randomInt(5, 19);
 
-      workAreaMap[workArea] = workAreaMap[workArea]
-        ? workAreaMap[workArea] + height
+      workAreaMetadata[workArea] = workAreaMetadata[workArea]
+        ? workAreaMetadata[workArea] + height
         : height;
 
       if (isCut) {
         height = height * -1;
       }
 
-      const surveyHeight = initialSurvey[r][c];
+      const surveyHeight = initial[r][c];
       columnMap.push(surveyHeight + height);
     }
-    targetHeight.push(columnMap)
+    target.push(columnMap)
   }
 
-  return { targetHeight, workAreaMap };
+  return { target, workAreaMetadata };
 };
 
 const upscaler = (heightMap) => {
-  const initialSurvey = [];
+  const initial = [];
   for(let r = 0; r < UPSCALE_ROW; r++){
     let columnMap = [];
     for(let c = 0; c < UPSCALE_COLUMN; c++){
       columnMap.push(randomInt(20, 40));
     }
-    initialSurvey.push(columnMap)
+    initial.push(columnMap)
   }
 
-  const { targetHeight, workAreaMap } = generateTargetAndMap(
-    initialSurvey,
+  const { target, workAreaMetadata } = generateTargetAndMap(
+    initial,
     heightMap
   );
-  return { targetHeight, initialSurvey, workAreaMap };
+  return { target, initial, workAreaMetadata };
 };
 
 module.exports = upscaler;
